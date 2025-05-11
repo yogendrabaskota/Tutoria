@@ -81,9 +81,9 @@ class JobController{
         }
 
 
-        console.log("userJob[0].id",userJob[0].id)
+       // console.log("userJob[0].id",userJob[0].id)
 
-        console.log("findJob.id",findJob.id)
+       // console.log("findJob.id",findJob.id)
         if(userJob[0].id !== findJob.id){
             res.status(403).json({
                 message : "Unauthorized!! You can't update this job"
@@ -110,6 +110,33 @@ class JobController{
 
     }
 
+    async getSingleJob(req:AuthRequest,res:Response):Promise<void>{
+        const userId = req.user?.id
+        const jobId = req.params.jobId 
+        
+        //console.log("jobid",jobId)
+        if(!jobId){
+            res.status(404).json({
+                message : "Invalid JobId"
+            })
+            return
+        }
+        const jobFound = await Job.findById(jobId)
+       // console.log("jobI",jobFound)
+
+        if(!jobFound){
+            res.status(404).json({
+                message : "No job found"
+            })
+            return
+        }
+        res.status(200).json({
+            message : "Job fetched successfully",
+            data: jobFound
+            
+        })
+
+    }
 
 
 

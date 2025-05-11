@@ -16,6 +16,8 @@ router.route("/create")
 router.route("/all")
     .get(authMiddleware.isAuthenticated,authMiddleware.restrictTo(Role.User),jobController.allJob)
 
+router.route("/single/:jobId")
+    .get(authMiddleware.isAuthenticated,JobController.getSingleJob)
 
 
 
