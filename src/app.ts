@@ -5,12 +5,17 @@ const app:Application = express()
 const PORT:number = 3000
 
 
-app.get("/",(req:Request,res:Response)=>{
-    res.send("This is backend")
-})
 
-connectDatabase()
-app.use(express.json())  
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));  
+
+
+
+// app.get("/",(req:Request,res:Response)=>{
+//     res.send("This is backend")
+// })
+
+
 
 
 import userRoute from './route/userRoute'
@@ -19,7 +24,7 @@ import userRoute from './route/userRoute'
 app.use('/user',userRoute)
 
 
-
+connectDatabase()
 
 
 app.listen(PORT, ()=>{

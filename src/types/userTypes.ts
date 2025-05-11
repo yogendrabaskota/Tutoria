@@ -1,6 +1,6 @@
 export interface IUser extends Document {
   email: string,
-  name: string,
+  name: String,
   role : Userrole,
   password: string,
   createdAt?: Date,

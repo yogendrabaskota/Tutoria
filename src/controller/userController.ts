@@ -2,29 +2,30 @@ import { Request, Response } from "express";
 import User from "../model/userModel";
 import bcrypt from 'bcrypt'
 import  jwt  from "jsonwebtoken";
-import dotenv from "dotenv";
 
 
 class UserController{
     public static async registerUser(req:Request,res:Response):Promise<void>{
         
-        const {username, email, password, role} = req.body
-        if(!username || !email || !password){
+        const {name, email, password, role} = req.body
+        if( !name || !email || !password){
             res.status(400).json({
                 message: "Please Provide username, email and password"
             })
             return
         }
 
-        const emailFOund = await User.find(email)
-        if(emailFOund){
+        const emailFOund = await User.find({email})
+        //console.log("emailfound",emailFOund)
+        if(emailFOund.length > 0){
             res.status(400).json({
                 message : "This email is already used. Please used unique email address"
             })
+            return
         }
 
         await User.create({
-            name: username,
+            name,
             email,
             password: bcrypt.hashSync(password,8),
             role
@@ -43,7 +44,7 @@ class UserController{
             })
             return 
         }
-        const userFound = await User.find(email)
+        const userFound = await User.find({email})
         if(userFound.length === 0){
             res.status(400).json({
                 message: "No user registered with this email" 
@@ -53,7 +54,7 @@ class UserController{
         const isMatched = bcrypt.compareSync(password,userFound[0].password)
 
         if(isMatched){
-            const token = jwt.sign({id : userFound[0]._id},process.env.SECRET_KEY,{
+            const token = jwt.sign({id : userFound[0]._id}, process.env.SECRET_KEY as string,{
                 expiresIn : '30d'
             })
 
@@ -62,7 +63,7 @@ class UserController{
                 token : token
             })
         }else{
-            res.status(400).json({
+            res.status(403).json({
                 message : "Invalid password"
             })
         }
