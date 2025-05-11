@@ -20,7 +20,7 @@ export interface IJob {
   location: String,
   NoS: String, //Number of students
   time: String,
-  SOffered: number, //salary offered
+  SOffered: string, //salary offered
   description: Text,
   status: setStatus,
   userId: string | null

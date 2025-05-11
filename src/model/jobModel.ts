@@ -28,7 +28,7 @@ const jobSchema: Schema<IJob> = new Schema(
         required: true
     },
     SOffered: {
-        type: Number,
+        type: String,
         required : true
     },
     description: {

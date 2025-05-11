@@ -10,7 +10,7 @@ class UserController{
         const {name, email, password, role} = req.body
         if( !name || !email || !password || !role){
             res.status(400).json({
-                message: "Please Provide username, email and password"
+                message: "Please Provide username, email and password and role"
             })
             return
         }
