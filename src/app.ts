@@ -10,6 +10,17 @@ app.get("/",(req:Request,res:Response)=>{
 })
 
 connectDatabase()
+app.use(express.json())  
+
+
+import userRoute from './route/userRoute'
+
+
+app.use('/user',userRoute)
+
+
+
+
 
 app.listen(PORT, ()=>{
     console.log("Server has started at port ", PORT)
