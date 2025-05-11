@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document, Model, Mongoose } from 'mongoose';
 import { IJob, setStatus } from '../types/userTypes';
 
 
@@ -40,8 +40,11 @@ const jobSchema: Schema<IJob> = new Schema(
         type: String,
         enum : setStatus,
         default: setStatus.open
-    }
+    },
 
+    userId: {
+        type: mongoose.Types.ObjectId
+    }
 
   },
   {

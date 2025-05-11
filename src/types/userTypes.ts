@@ -1,6 +1,8 @@
+import { ObjectId } from "mongoose";
+
 export interface IUser extends Document {
   email: string,
-  name: String,
+  name: string,
   role : Userrole,
   password: string,
   createdAt?: Date,
@@ -20,7 +22,8 @@ export interface IJob {
   time: String,
   SOffered: number, //salary offered
   description: Text,
-  status: setStatus
+  status: setStatus,
+  userId: string | null
 
 }
 
