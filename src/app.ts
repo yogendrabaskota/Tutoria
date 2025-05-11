@@ -11,17 +11,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-// app.get("/",(req:Request,res:Response)=>{
-//     res.send("This is backend")
-// })
-
-
 
 
 import userRoute from './route/userRoute'
+import jobRoute from './route/jobRoute'
 
 
 app.use('/user',userRoute)
+app.use('/job',jobRoute)
 
 
 connectDatabase()

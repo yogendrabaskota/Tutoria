@@ -8,7 +8,7 @@ class UserController{
     public static async registerUser(req:Request,res:Response):Promise<void>{
         
         const {name, email, password, role} = req.body
-        if( !name || !email || !password){
+        if( !name || !email || !password || !role){
             res.status(400).json({
                 message: "Please Provide username, email and password"
             })
