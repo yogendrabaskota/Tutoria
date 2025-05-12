@@ -2,10 +2,11 @@ import { Request, Response } from "express";
 import User from "../model/userModel";
 import bcrypt from 'bcrypt'
 import  jwt  from "jsonwebtoken";
+import { AuthRequest } from "../middleware/authMiddleware";
 
 
 class UserController{
-    public static async registerUser(req:Request,res:Response):Promise<void>{
+    async registerUser(req:Request,res:Response):Promise<void>{
         
         const {name, email, password, role} = req.body
         if( !name || !email || !password || !role){
@@ -35,7 +36,7 @@ class UserController{
         })
     }
 
-    public static async loginUser(req:Request, res:Response):Promise<void>{
+    async loginUser(req:Request, res:Response):Promise<void>{
         const{email, password} = req.body
 
         if(!email || !password){
@@ -70,6 +71,27 @@ class UserController{
 
     }
 
+    async getMyProfile(req:AuthRequest,res:Response):Promise<void>{
+        const userId = req.user?.id
+       // console.log("userif",userId)
+
+        if(!userId){
+            res.status(400).json({
+                message :"please provide userid"
+            })
+        }
+
+        const foundProfile = await User.findById(userId)
+       // console.log("user found",foundProfile)
+
+    
+        res.status(200).json({
+            message : "Profile fetched successfully",
+            data : foundProfile
+        })
+    }
+
+
 }
 
-export default UserController
+export default new UserController
