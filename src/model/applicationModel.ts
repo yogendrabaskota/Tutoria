@@ -1,15 +1,19 @@
 import mongoose, { Schema, Document, Model, Mongoose } from 'mongoose';
 import { aStatus, IApplication,} from '../types/userTypes';
+import User from './userModel';
+import Job from './jobModel';
 
 
 const applicationSchema: Schema<IApplication> = new Schema(
   {
 
     userId: {
-        type: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,
+        ref : User
     },
     jobId : {
-        type: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,
+        ref : Job
     },
 
     address: {

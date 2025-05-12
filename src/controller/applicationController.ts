@@ -61,7 +61,7 @@ class ApplicationController{
             return
         }
 
-        const jobFound = await Application.find({jobId})
+        const jobFound = await Application.find({jobId}).populate('userId','name email -_id').populate('jobId','title -_id')
         //console.log("all application of that job",jobFound)
 
         if(jobFound.length == 0){
