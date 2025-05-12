@@ -36,7 +36,7 @@ class JobController{
     async allJob(req:AuthRequest,res:Response):Promise<void>{
         const userId = req.user?.id
 
-        const data = await Job.find({userId})
+        const data = await Job.find({})
         //console.log("data",data)
         if(data.length == 0){
             res.status(400).json({
@@ -111,7 +111,7 @@ class JobController{
     }
 
     async getSingleJob(req:AuthRequest,res:Response):Promise<void>{
-        const userId = req.user?.id
+      //  const userId = req.user?.id
         const jobId = req.params.jobId 
         
         //console.log("jobid",jobId)
@@ -136,6 +136,64 @@ class JobController{
             
         })
 
+    }
+
+    async allYourJob(req:AuthRequest,res:Response):Promise<void>{
+        const userId = req.user?.id
+        if(!userId){
+            res.status(400).json({
+                message :"No userId found"
+            })
+            return
+        }
+
+        const foundJob = await Job.find({userId})
+        //console.log("jobFound",foundJob)
+        if(foundJob.length == 0){
+            res.status(404).json({
+                message : "No job found"
+            })
+            return
+        }
+        res.status(200).json({
+            message : "Jobfetched successfully",
+            data : foundJob
+        })
+
+
+    }
+
+    async deleteJob(req:AuthRequest,res:Response):Promise<void>{
+        const userId = req.user?.id
+        const jobId = req.params.jobId
+
+        if(!jobId || !userId){
+            res.status(400).json({
+                message : "please provide jobId and userId"
+            })
+            return 
+        }
+        
+
+        const foundJob = await Job.findById(jobId)
+        //console.log("job id ko job",foundJob)
+
+       //console.log("ok?.userId !== userId",foundJob?.userId?.toString() !== userId)
+        // console.log("ok?.userI",foundJob?.userId?.toString())
+        // console.log("userId",userId)
+
+
+        if(foundJob?.userId?.toString() !== userId){
+            res.status(400).json({
+                message : "You can't delete this job" 
+            })
+            return
+        }
+
+        await Job.findByIdAndDelete(jobId)
+        res.status(200).json({
+            message : "Job deleted Successfully"
+        })
     }
 
 

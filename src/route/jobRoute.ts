@@ -18,8 +18,10 @@ router.route("/all")
 
 router.route("/single/:jobId")
     .get(authMiddleware.isAuthenticated,JobController.getSingleJob)
+    .delete(authMiddleware.isAuthenticated,JobController.deleteJob)
 
-
+router.route("/your")
+    .get(authMiddleware.isAuthenticated,jobController.allYourJob)
 
 
 export default router
