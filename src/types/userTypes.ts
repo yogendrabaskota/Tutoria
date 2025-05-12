@@ -32,3 +32,21 @@ export enum setStatus {
   closed = 'closed',
   hired = 'hired'
 }
+
+export interface IApplication {
+  address : string,
+  qualification : string,
+  experience : string,
+  rSalary : string,
+  contact: string
+  userId: string | null,
+  jobId : string | null
+  status : aStatus
+
+}
+
+export enum aStatus {
+  pending = 'pending',
+  accepted = 'accepted',
+  rejected = 'rejected'
+}

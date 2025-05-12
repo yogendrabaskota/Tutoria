@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 import userRoute from './route/userRoute'
 import jobRoute from './route/jobRoute'
+import applicationRoute from './route/applicationRoute'
 
 
 app.get("/",(req:Request,res:Response)=>{
@@ -23,6 +24,8 @@ app.get("/",(req:Request,res:Response)=>{
 
 app.use('/user',userRoute)
 app.use('/job',jobRoute)
+app.use('/application',applicationRoute)
+
 
 
 connectDatabase()
