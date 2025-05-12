@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import User from "../model/userModel";
 import bcrypt from 'bcrypt'
 import  jwt  from "jsonwebtoken";
-import { AuthRequest } from "../middleware/authMiddleware";
+import { AuthRequest, Role } from "../middleware/authMiddleware";
+import { Userrole } from "../types/userTypes";
 
 
 class UserController{
@@ -79,6 +80,7 @@ class UserController{
             res.status(400).json({
                 message :"please provide userid"
             })
+            return
         }
 
         const foundProfile = await User.findById(userId)
@@ -92,6 +94,40 @@ class UserController{
     }
 
 
+    async allUser(req:AuthRequest,res:Response):Promise<void>{
+        
+        const allUser = await User.find()
+       // console.log(allUser)
+       if(allUser.length == 0){
+        res.status(404).json({
+            message : "No user found"
+        })
+        return
+       }
+
+        res.status(200).json({
+            message : "User fetched successfully",
+            data : allUser
+        })
+        
+    }
+
+    async allTeacher(req:AuthRequest,res:Response):Promise<void>{
+        const userFound = await User.find({role : Userrole.Teacher})
+       // console.log(userFound)
+
+        if(userFound.length == 0){
+            res.status(404).json({
+                message : 'No Teacher found'
+            })
+            return
+        }
+
+        res.status(200).json({
+            message : "Teacher fetched successfully",
+            data : userFound
+        })
+    }
 }
 
 export default new UserController
