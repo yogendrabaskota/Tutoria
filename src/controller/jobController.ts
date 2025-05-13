@@ -36,7 +36,7 @@ class JobController{
     async allJob(req:AuthRequest,res:Response):Promise<void>{
         const userId = req.user?.id
 
-        const data = await Job.find({})
+        const data = await Job.find({}).populate('userId', 'name -_id')
         //console.log("data",data)
         if(data.length == 0){
             res.status(400).json({

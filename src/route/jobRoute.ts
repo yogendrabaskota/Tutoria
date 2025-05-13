@@ -14,7 +14,7 @@ router.route("/create")
     .post(authMiddleware.isAuthenticated,authMiddleware.restrictTo(Role.User), JobController.createJob)
 
 router.route("/all")
-    .get(authMiddleware.isAuthenticated,authMiddleware.restrictTo(Role.User),jobController.allJob)
+    .get(authMiddleware.isAuthenticated,jobController.allJob)
 
 router.route("/single/:jobId")
     .get(authMiddleware.isAuthenticated,JobController.getSingleJob)
