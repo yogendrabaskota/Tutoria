@@ -1,5 +1,6 @@
 import mongoose, { Schema, Document, Model, Mongoose } from 'mongoose';
 import { IJob, setStatus } from '../types/userTypes';
+import User from './userModel';
 
 
 const jobSchema: Schema<IJob> = new Schema(
@@ -43,7 +44,8 @@ const jobSchema: Schema<IJob> = new Schema(
     },
 
     userId: {
-        type: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,
+        ref :User
     }
 
   },

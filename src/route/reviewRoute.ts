@@ -1,12 +1,12 @@
 import express,{Router} from 'express'
-import authMiddleware from '../middleware/authMiddleware'
+import authMiddleware, { Role } from '../middleware/authMiddleware'
 import reviewController from '../controller/reviewController'
 
 const router:Router = express.Router()
 
 
 router.route('/create/:userId/:jobId')
-    .post(authMiddleware.isAuthenticated, reviewController.createReview)
+    .post(authMiddleware.isAuthenticated, authMiddleware.restrictTo(Role.User), reviewController.createReview)
 
 router.route('/jobreview/:jobId')
     .get(authMiddleware.isAuthenticated,reviewController.getJobReview)

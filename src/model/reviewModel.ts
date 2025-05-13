@@ -15,7 +15,7 @@ const reviewSchema: Schema<IReview> = new Schema(
         type: mongoose.Types.ObjectId,
         ref : Job
     },
-    userId : {
+    userId : { // teacher id or the one who got review from user
         type: mongoose.Types.ObjectId,
         ref : User
     },

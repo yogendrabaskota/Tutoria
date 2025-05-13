@@ -1,6 +1,7 @@
 import { Request,Response } from "express";
 import { AuthRequest } from "../middleware/authMiddleware";
 import Review from "../model/reviewModel";
+import Job from "../model/jobModel";
 
 
 class ReviewController{
@@ -30,15 +31,17 @@ class ReviewController{
         }
 
 
-        const findJob = await Review.find({userId,jobId})
-        console.log("findJob",findJob)
+        //const findJob = await Review.find({userId,jobId})
 
-        if(findJob.length == 0){
-            res.status(404).json({
-                message : "No job found for selected teacher"
-            })
-            return
-        }
+        // const findJob = await Job.find({userId})
+        // console.log("findJob",findJob)
+
+        // if(findJob.length == 0){
+        //     res.status(404).json({
+        //         message : "No job found for selected teacher"
+        //     })
+        //     return
+        // }
 
         const newReview = await Review.create({
             userId,
@@ -58,7 +61,7 @@ class ReviewController{
     async getJobReview(req:AuthRequest,res:Response):Promise<void>{
         const jobId = req.params.jobId 
 
-        console.log("jobid",jobId)
+       // console.log("jobid",jobId)
         if(!jobId){
             res.status(400).json({
                 message : "No jobId found"
@@ -66,8 +69,8 @@ class ReviewController{
             return
         }
 
-        const jobReview = await Review.find({jobId})
-        console.log("JOb revirew",jobReview)
+        const jobReview = await Review.find({jobId}).populate('reviewCreator', 'name email')
+       // console.log("JOb revirew",jobReview)
 
         if(jobReview.length == 0){
             res.status(404).json({
@@ -84,7 +87,7 @@ class ReviewController{
      async getTeacherrReview(req:AuthRequest,res:Response):Promise<void>{
         const userId = req.params.userId  
 
-        console.log("userId",userId)
+       // console.log("userId",userId)
         if(!userId){
             res.status(400).json({
                 message : "No userId found"
@@ -93,7 +96,7 @@ class ReviewController{
         }
 
         const userReview = await Review.find({userId})
-        console.log("userReview ",userReview)
+       // console.log("userReview ",userReview)
 
         if(userReview.length == 0){
             res.status(404).json({
@@ -117,8 +120,8 @@ class ReviewController{
             return
         }
 
-        const clientReview = await Review.find({reviewCreator : userId})
-        console.log("client review",clientReview)
+        const clientReview = await Review.find({reviewCreator : userId}).populate('reviewCreator', 'name email').populate('jobId','title description')
+       // console.log("client review",clientReview)
         if(clientReview.length == 0){
             res.status(404).json({
                 message : "No review given"
