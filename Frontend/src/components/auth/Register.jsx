@@ -19,10 +19,10 @@ const Register = () => {
       });
       const data = await res.json();
        if (res.status === 200 || res.ok) {
-        // Registration successful
+ 
         navigate('/login');
       } else {
-        // Show error from backend (if available), else generic
+
         alert(data.message || 'Registration failed.');
       }
      
@@ -56,11 +56,11 @@ const Register = () => {
     },
    {
     label: 'Role',
-    type: 'select', // use "select" instead of "role"
+    type: 'select', 
     name: 'role',
     value: role,
     onChange: (e) => setRole(e.target.value),
-    options: ['User', 'Teacher'], // add options
+    options: ['User', 'Teacher'], 
   },
   ];
 

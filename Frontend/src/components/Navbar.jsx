@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext'
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { token, logout } = useContext(AuthContext);
 
-  // Check token on component mount
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token); // convert token to true/false
-  }, []);
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <nav className="bg-teal-600 text-white px-6 py-4 shadow-md w-full m-0">
@@ -28,7 +27,7 @@ const Navbar = () => {
             <Link to="/contact" className="hover:text-gray-200">Contact</Link>
           </li>
 
-          {!isLoggedIn ? (
+          {!token ? (
             <>
               <li>
                 <Link
@@ -48,14 +47,24 @@ const Navbar = () => {
               </li>
             </>
           ) : (
-            <li>
-              <Link
-                to="/dashboard"
-                className="bg-white text-teal-600 font-semibold px-4 py-1 rounded hover:bg-gray-100 transition"
-              >
-                Dashboard
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link
+                  to="/dashboard"
+                  className="bg-white text-teal-600 font-semibold px-4 py-1 rounded hover:bg-gray-100 transition"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white font-semibold px-4 py-1 rounded hover:bg-red-600 transition"
+                >
+                  Logout
+                </button>
+              </li>
+            </>
           )}
         </ul>
       </div>
