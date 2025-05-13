@@ -50,3 +50,19 @@ export enum aStatus {
   accepted = 'accepted',
   rejected = 'rejected'
 }
+
+export interface IReview {
+  description : string,
+  rating : selectRating,
+  jobId : string | null,
+  userId : string | null,
+  reviewCreator : string | null
+}
+
+export enum selectRating {
+  excellent = 'excellent',
+  good = 'good',
+  average = 'average',
+  bad = 'bad',
+  worst = 'worst'
+}
