@@ -121,7 +121,7 @@ class JobController{
             })
             return
         }
-        const jobFound = await Job.findById(jobId)
+        const jobFound = await Job.findById(jobId).populate('userId','name')
        // console.log("jobI",jobFound)
 
         if(!jobFound){

@@ -36,6 +36,7 @@ const JobList = () => {
           salary = {job.SOffered}
           name={job.userId.name}
           status={job.status}
+          jobId = {job._id}
         />
       ))}
     </div>
