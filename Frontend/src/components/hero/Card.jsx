@@ -8,7 +8,6 @@ const Card = ({ jobId,title, description, location, subject, name, salary, statu
     navigate(`/detail/${jobId}`);
   };
 
-  // Choose badge color
   const statusClass = {
     open: 'bg-green-400',
     closed: 'bg-red-400',
@@ -64,14 +63,14 @@ const Card = ({ jobId,title, description, location, subject, name, salary, statu
           </div>
         </div>
 
-        {/* Salary on right */}
+       
         <div className="text-right">
           <p className="text-sm font-semibold text-gray-800">Salary</p>
           <p className="text-lg text-green-700 font-bold">{salary}</p>
         </div>
       </div>
 
-      {/* Status + Apply button row */}
+     
       <div className="flex justify-between items-center px-4 pb-4">
         <strong
           className={`inline-flex items-center gap-1 rounded-ss-xl rounded-ee-xl px-3 py-1.5 text-white text-xs sm:text-sm ${statusClass}`}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react'; // Optional: Use any icon you like
+import { ArrowLeft } from 'lucide-react'; 
 
 const Back = ({ label = 'Back' }) => {
   const navigate = useNavigate();
