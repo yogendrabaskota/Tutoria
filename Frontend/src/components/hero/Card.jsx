@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Card = ({ jobId,title, description, location, subject, name, salary, status }) => {
@@ -69,8 +68,7 @@ const Card = ({ jobId,title, description, location, subject, name, salary, statu
           <p className="text-lg text-green-700 font-bold">{salary}</p>
         </div>
       </div>
-
-     
+    
       <div className="flex justify-between items-center px-4 pb-4">
         <strong
           className={`inline-flex items-center gap-1 rounded-ss-xl rounded-ee-xl px-3 py-1.5 text-white text-xs sm:text-sm ${statusClass}`}
