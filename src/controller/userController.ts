@@ -93,6 +93,32 @@ class UserController{
         })
     }
 
+    async deleteMyProfile(req:AuthRequest, res:Response):Promise<void>{
+        const userId = req.user?.id
+        
+        if(!userId){
+            res.status(400).json({
+                message : "Cannot find userId"
+            })
+            return
+
+        }
+        
+        
+        //const userFound = await User.findById(userId)
+        //console.log("user found",userFound)
+
+        await User.findByIdAndDelete(userId)
+        res.status(200).json({
+            message : "User Deleted successfully"
+        })
+
+
+    }
+
+
+    
+
 
     async allUser(req:AuthRequest,res:Response):Promise<void>{
         
