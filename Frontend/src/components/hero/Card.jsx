@@ -35,7 +35,7 @@ const Card = ({ jobId,title, description, location, subject, name, salary, statu
             <p className="line-clamp-2 text-sm text-gray-700">Subject: {subject}</p>
 
             <div className="mt-2 sm:flex sm:items-center sm:gap-2">
-              <div className="flex items-center gap-1 text-gray-500">
+              {/* <div className="flex items-center gap-1 text-gray-500">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="size-4"
@@ -51,9 +51,9 @@ const Card = ({ jobId,title, description, location, subject, name, salary, statu
                   />
                 </svg>
                 <p className="text-xs">Application</p>
-              </div>
+              </div> */}
 
-              <span className="hidden sm:block" aria-hidden="true">&middot;</span>
+              {/* <span className="hidden sm:block" aria-hidden="true">&middot;</span> */}
 
               <p className="hidden sm:block sm:text-xs sm:text-gray-500">
                 Posted by <a href="#" className="font-medium underline hover:text-gray-700">{name}</a>
