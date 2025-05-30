@@ -75,7 +75,6 @@ const JobList = () => {
             </div>
             <div className="bg-white">
               <p><strong>Email:</strong> {profile.email}</p>
-              <p><strong>Role:</strong> {profile.role}</p>
             </div>
           </>
         ) : (

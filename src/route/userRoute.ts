@@ -1,6 +1,7 @@
 import express,{Router} from 'express'
 import UserController from '../controller/userController'
 import authMiddleware from '../middleware/authMiddleware'
+import userController from '../controller/userController'
 
 const router:Router = express.Router()
 
@@ -18,6 +19,9 @@ router.route("/all")
 router.route("/teacher")
     .get(authMiddleware.isAuthenticated,UserController.allTeacher)
 
+
+router.route("/myprofile/:userId")
+    .patch(authMiddleware.isAuthenticated,userController.editUser)
 
 
 export default router

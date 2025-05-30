@@ -117,6 +117,7 @@ class UserController{
     }
 
 
+
     
 
 
@@ -154,6 +155,62 @@ class UserController{
             data : userFound
         })
     }
+
+
+
+async editUser(req: AuthRequest, res: Response): Promise<void> {
+  const { userId } = req.params;
+  const { name, email } = req.body;
+
+  if (!req.user?.id || req.user.id !== userId) {
+    res.status(403).json({
+      message: "Unauthorized"
+    });
+    return;
+  }
+
+  try {
+
+    const currentUser = await User.findById(userId);
+    if (!currentUser) {
+      res.status(404).json({
+        message: "User not found"
+      });
+      return;
+    }
+
+
+    if (email && email !== currentUser.email) {
+      const existingUser = await User.findOne({ email });
+
+      if (existingUser) {
+        res.status(400).json({
+          message: "This email is already in use by another user."
+        });
+        return;
+      }
+    }
+
+    currentUser.name = name || currentUser.name
+    currentUser.email = email || currentUser.email
+    await currentUser.save()
+
+    res.status(200).json({
+      message: "User updated successfully",
+      data: currentUser
+    });
+  } catch (error) {
+    console.error("Error updating user:", error)
+    res.status(500).json({ message: "Server error" })
+  }
 }
+
+
+
+}
+
+
+
+
 
 export default new UserController

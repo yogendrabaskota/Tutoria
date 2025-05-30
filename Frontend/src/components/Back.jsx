@@ -8,7 +8,7 @@ const Back = ({ label = 'Back' }) => {
   return (
     <button
       onClick={() => navigate(-1)}
-      className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium mb-4 hover:cursor-pointer transition"
+      className="flex items-center gap-2 text-teal-600 hover:text-blue-800 font-medium mb-4 hover:cursor-pointer transition"
     >
       <ArrowLeft size={25} />
       {label}

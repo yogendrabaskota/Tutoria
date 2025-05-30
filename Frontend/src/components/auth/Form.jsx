@@ -1,8 +1,10 @@
 import React from 'react';
+import Back from '../Back';
 
 const Form = ({ title, fields, onSubmit }) => {
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+      <Back />
       <h2 className="text-2xl font-bold mb-6 text-center text-teal-600">{title}</h2>
       <form onSubmit={onSubmit} className="space-y-4">
         {fields.map(({ label, type, name, value, onChange, options }, index) => (
