@@ -73,7 +73,7 @@ const JobList = () => {
                 </Link>
               </button>
             </div>
-            <div className="bg-white">
+            <div className="">
               <p><strong>Email:</strong> {profile.email}</p>
             </div>
           </>

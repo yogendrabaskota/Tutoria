@@ -7,6 +7,7 @@ import Register from './components/auth/Register'
 import JobList from './components/hero/JobList'
 import JobDetail from './components/job/JobDetails'
 import EditProfile from './components/auth/EditProfile'
+import Dashboard from './pages/Dashboard'
 
 function App() {
 
@@ -21,8 +22,9 @@ function App() {
       <Route path="/" element={<JobList />} /> 
       <Route path="/detail/:jobId" element={<JobDetail />} /> 
       <Route path="/edit" element={<EditProfile />} /> 
+      <Route path='/dashboard' element={<Dashboard />} />
 
-      {/* apply button in job */}
+   
 
     </Routes>
     </BrowserRouter>
