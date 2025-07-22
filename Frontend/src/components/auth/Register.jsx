@@ -1,70 +1,82 @@
-import React, { useState } from 'react';
-import Form from './Form';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import Form from "./Form";
+import {
+  clearError,
+  registerUser,
+  selectAuthError,
+  selectAuthStatus,
+} from "../../store/authSlice";
 
 const Register = () => {
-    const navigate = useNavigate()
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const status = useSelector(selectAuthStatus);
+  const error = useSelector(selectAuthError);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch('http://localhost:4000/user/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, role }),
-      });
-      const data = await res.json();
-       if (res.status === 200 || res.ok) {
- 
-        navigate('/login');
-      } else {
-
-        alert(data.message || 'Registration failed.');
-      }
-     
-    } catch (err) {
-      alert('Something went wrong. Please try again later.')
-      console.error('Registration failed:', err);
+    dispatch(clearError());
+    const result = await dispatch(
+      registerUser({ name, email, password, role })
+    );
+    if (registerUser.fulfilled.match(result)) {
+      navigate("/login");
     }
   };
 
   const fields = [
     {
-      label: 'Username',
-      type: 'text',
-      name: 'name',
+      label: "Full Name",
+      type: "text",
+      name: "name",
       value: name,
       onChange: (e) => setName(e.target.value),
+      required: true,
     },
     {
-      label: 'Email',
-      type: 'email',
-      name: 'email',
+      label: "Email",
+      type: "email",
+      name: "email",
       value: email,
       onChange: (e) => setEmail(e.target.value),
+      required: true,
     },
     {
-      label: 'Password',
-      type: 'password',
-      name: 'password',
+      label: "Password",
+      type: "password",
+      name: "password",
       value: password,
       onChange: (e) => setPassword(e.target.value),
+      required: true,
     },
-   {
-    label: 'Role',
-    type: 'select', 
-    name: 'role',
-    value: role,
-    onChange: (e) => setRole(e.target.value),
-    options: ['User', 'Teacher'], 
-  },
+    {
+      label: "Role",
+      type: "select",
+      name: "role",
+      value: role,
+      onChange: (e) => setRole(e.target.value),
+      options: ["Student", "Teacher"],
+      required: true,
+    },
   ];
 
-  return <Form title="Register" fields={fields} onSubmit={handleRegister} />;
+  return (
+    <Form
+      title="Register"
+      fields={fields}
+      onSubmit={handleRegister}
+      error={error}
+      isLoading={status === "loading"}
+    />
+  );
 };
 
 export default Register;
